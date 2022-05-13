@@ -61,16 +61,40 @@ const BookView = () => {
         let first_index;
         let last_index;
 
+        // define locations where to exclude spaces after mapping
+        let respace_index = []
+        /// How to pop the space that appers before the word after - afterwards
+        // var str = "Hello World";
+        // str = str.slice(0, 3) + str.slice(4);
+        // console.log(str)
+
+        // This will return Helo World
+        
+
         if (tokenObject.position[0] === 0) {
           first_index = tokenObject.position[0]
         } else {
-          first_index = tokenObject.position[0] - 1
+          if (content.charAt(tokenObject.position[0] - 1) =="-") {
+            first_index = tokenObject.position[0]
+            respace_index.push(tokenObject.position[0])
+            // console.log(respace_index)
+          } else {
+            first_index = tokenObject.position[0] - 1
+          }
+          // first_index = tokenObject.position[0] - 1
         }
 
     
         // last index || add 1 to the last index so that you can capture the closing punctuations
         last_index = tokenObject.position[1] + 1
+        
 
+        
+        // if (respace_index.includes(first_index)) {
+        //   var theWord = content.slice(first_index -1 , last_index)
+        // } else {
+        //   var theWord = content.slice(first_index, last_index)
+        // }
         let theWord = content.slice(first_index, last_index)
 
         if (content.slice(first_index, last_index + 1).endsWith(".")) {
@@ -89,6 +113,7 @@ const BookView = () => {
 
         // define some punctuations
         // let punctions = [".", ",", ":", "!", "?", '”']
+
 
         const theWordValue = tokenObject.value
 
